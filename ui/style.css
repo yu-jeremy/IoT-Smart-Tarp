@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:100');
+
+#company_title {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.btn {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
