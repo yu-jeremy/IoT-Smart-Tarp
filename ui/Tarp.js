@@ -11,35 +11,27 @@ var user_div
 
 
 function goToSettings() {
-
+  photos_div.hide();
+  home_div.hide();
+  user_div.hide();
 }
 
 function goToUserProfile() {
-
+  home_div.hide();
+  photos_div.hide();
+  settings_div.hide();
 }
 
 function goToControlPanel() {
-
+  photos_div.hide();
+  user_div.hide();
+  settings_div.hide();
 }
 
 function goToPhotos() {
-
-}
-
-function hideForCP() {
-
-}
-
-function hideForSettings() {
-
-}
-
-function hideForUser() {
-
-}
-
-function hideForPhotos() {
-
+  user_div.hide();
+  settings_div.hide();
+  home.hide();
 }
 
 $(window).on('load', function() {
@@ -52,4 +44,13 @@ $(window).on('load', function() {
   user_div = $("#user_div")[0];
   photos_div = $("#photos_div")[0];
   settings_div = $("#settings_div")[0];
+
+
+
+
+  control_panel_btn.on('click', function() {
+    goToControlPanel();
+  })
+
+  
 });
