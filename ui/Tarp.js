@@ -3,6 +3,7 @@ var company_title
 var photos_btn
 var settings_btn
 var profile_btn
+var toggle_tarp_btn
 
 var photosToCp
 var photosToUser
@@ -20,8 +21,13 @@ var photos_div
 var settings_div
 var home_div
 var user_div
+var loading_div
 
+var current_page // the current page
 
+function toggleTarp() {
+  smartTarp.toggleTarp();
+}
 function goToSettings() {
   photos_div.style.display = "none";
   home_div.style.display = "none";
@@ -50,16 +56,34 @@ function goToPhotos() {
   photos_div.style.display = "block";
 }
 
+function goToLoading() {
+  user_div.style.display = "none";
+  settings_div.style.display = "none";
+  home_div.style.display = "none";
+  photos_div.style.display = "none";
+}
+
+function loadingPage() {
+  loading_div.style.display = "none";
+  goToControlPanel();
+}
+
 function updateState(newState) {
+  loadingPage();
+  document.getElementById("info").innerHTML = newState.tarpState;
   console.log(newState);
 }
 
 window.addEventListener("load", function() {
+
+  loading_div = document.getElementById("loading_div");
+
   company_title = document.getElementById("company_title");
   control_panel_btn = document.getElementById("cp_btn");
   photos_btn = document.getElementById("photos_btn");
   settings_btn = document.getElementById("settings_btn");
   profile_btn = document.getElementById("profile_btn");
+  toggle_tarp_btn = document.getElementById("toggle_tarp_btn");
 
   photosToCp = document.getElementById("photosToCp");
   photosToUser = document.getElementById("photosToUser");
@@ -78,11 +102,10 @@ window.addEventListener("load", function() {
   photos_div = $("#photos_div")[0];
   settings_div = $("#settings_div")[0];
 
-  goToControlPanel();
-
   profile_btn.addEventListener("click", goToUserProfile);
   photos_btn.addEventListener("click", goToPhotos);
   settings_btn.addEventListener("click", goToSettings);
+  toggle_tarp_btn.addEventListener("click", toggleTarp);
 
   photosToCp.addEventListener("click", goToControlPanel);
   photosToUser.addEventListener("click", goToUserProfile);
@@ -96,6 +119,8 @@ window.addEventListener("load", function() {
   userToSettings.addEventListener("click", goToSettings);
   userToPhotos.addEventListener("click", goToPhotos);
 
+  goToLoading();
   smartTarp.setStateChangeListener(updateState);
   smartTarp.setup();
+  current_page = "home";
 });

@@ -25,11 +25,14 @@ enum State {
 
 State state = retracted;
 
+Timer retractAndextend(5000, stopRotating, true);
+
 // setup() runs once, when the device is first turned on.
 void setup() {
   Serial.begin(9600);
   servo.attach(D0);
-  servo.write(20);
+
+  tarpState = "Retracted";
 
   Particle.function("publishData", publishData);
   Particle.function("toggleTarp", toggleTarp);
@@ -41,13 +44,36 @@ void loop() {
   delay(1000);
 }
 
-int toggleTarp(String args) {
-  if (state == retracted) {
-    tarpState = "Extending";
-  } else if (state == extended) {
-    tarpState = "Retracting";
+void stopRotating() {
+  servo.detach();
+  if (tarpState == "Extending") {
+    tarpState = "Extended";
+    state = extended;
+  } else if (tarpState == "Retracting") {
+    tarpState = "Retracted";
+    state = retracted;
   }
   publishData("");
+}
+
+int toggleTarp(String args) {
+  servo.attach(D0);
+  if (state == retracted) {
+    tarpState = "Extending";
+    state = extending;
+    servo.write(180);
+    retractAndextend.start();
+  } else if (state == extended) {
+    tarpState = "Retracting";
+    servo.write(0);
+    retractAndextend.start();
+    state = retracting;
+  } else {
+    // do nothing
+  }
+
+  publishData("");
+  return 0;
 }
 
 int publishData(String args) {
@@ -55,6 +81,7 @@ int publishData(String args) {
   data += "\"tarpState\":";
   data += "\"";
   data += tarpState;
+  data += "\"";
   data += "}";
 
   Serial.println("Publishing:");

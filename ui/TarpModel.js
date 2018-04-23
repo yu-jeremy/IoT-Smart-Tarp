@@ -1,5 +1,5 @@
 var myParticleAccessToken = "5b02bf49f7ed3f9e77cf282347f13e46913a6aaf"
-var myDeviceId = "340046001051363036373538"
+var mySecondDeviceId = "340046001051363036373538"
 var mySecondDeviceId = "510049000351353530373132"
 var topic = "cse222/final_proj/tarp/state"
 
@@ -17,7 +17,7 @@ var smartTarp = {
   particle: null,
   toggleTarp: function() {
     var functionData = {
-      deviceId: myDeviceId,
+      deviceId:mySecondDeviceId,
       name: "toggleTarp",
       argument: "" + this.tarpState,
       auth: myParticleAccessToken
@@ -50,12 +50,13 @@ var smartTarp = {
       console.log("getEventStream success");
       stream.on('event', newTarpEvent);
       var publishingData = {
-           deviceId:myDeviceId,
-           name: "publishState",
+           deviceId:mySecondDeviceId,
+           name: "publishData",
            argument: "",
            auth: myParticleAccessToken
       }
       particle.callFunction(publishingData);
+
     }
     function onFailure(e) {
       console.log("getEventStream call failed");
