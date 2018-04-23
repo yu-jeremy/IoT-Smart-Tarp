@@ -50,6 +50,10 @@ function goToPhotos() {
   photos_div.style.display = "block";
 }
 
+function updateState(newState) {
+  console.log(newState);
+}
+
 window.addEventListener("load", function() {
   company_title = document.getElementById("company_title");
   control_panel_btn = document.getElementById("cp_btn");
@@ -91,4 +95,7 @@ window.addEventListener("load", function() {
   userToCp.addEventListener("click", goToControlPanel);
   userToSettings.addEventListener("click", goToSettings);
   userToPhotos.addEventListener("click", goToPhotos);
+
+  smartTarp.setStateChangeListener(updateState);
+  smartTarp.setup();
 });
