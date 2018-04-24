@@ -5,6 +5,7 @@ var settings_btn
 var profile_btn
 var toggle_tarp_btn
 var retrieve_data_btn
+var retrieve_pressure_btn
 
 var photosToCp
 var photosToUser
@@ -28,6 +29,10 @@ var current_page // the current page
 
 function toggleTarp() {
   smartTarp.toggleTarp();
+}
+
+function retrievePressure() {
+  smartTarp.testPressure();
 }
 
 function retrieveEnviroData() {
@@ -82,6 +87,7 @@ function updateState(newState) {
   document.getElementById("info").innerHTML = newState.tarpState;
   document.getElementById("temp").innerHTML = newState.temperature;
   document.getElementById("humidity").innerHTML = newState.humidity;
+  document.getElementById("pressure").innerHTML = newState.pressure;
 }
 
 window.addEventListener("load", function() {
@@ -95,6 +101,7 @@ window.addEventListener("load", function() {
   profile_btn = document.getElementById("profile_btn");
   toggle_tarp_btn = document.getElementById("toggle_tarp_btn");
   retrieve_data_btn = document.getElementById("retrieve_data_btn");
+  retrieve_pressure_btn = document.getElementById("retrieve_pressure_btn");
 
   photosToCp = document.getElementById("photosToCp");
   photosToUser = document.getElementById("photosToUser");
@@ -118,6 +125,7 @@ window.addEventListener("load", function() {
   settings_btn.addEventListener("click", goToSettings);
   toggle_tarp_btn.addEventListener("click", toggleTarp);
   retrieve_data_btn.addEventListener("click", retrieveEnviroData);
+  retrieve_pressure_btn.addEventListener("click", retrievePressure);
 
   photosToCp.addEventListener("click", goToControlPanel);
   photosToUser.addEventListener("click", goToUserProfile);

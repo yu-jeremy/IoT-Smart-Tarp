@@ -22,6 +22,7 @@ const String topic = "cse222/final_proj/tarp/state";
 String tarpState;
 float temperature;
 float humidity;
+float pressureValue;
 
 enum State {
   retracted,
@@ -32,11 +33,13 @@ enum State {
 
 State state = retracted;
 
-Timer retractAndextend(5000, stopRotating, true);
+Timer extend(6500, stopExtending, true);
+Timer retract(6000, stopRetracting, true);
 
 // setup() runs once, when the device is first turned on.
 void setup() {
   Serial.begin(9600);
+  pinMode(A4, INPUT);
   servo.attach(D2);
 
   sensor.begin();
@@ -48,30 +51,41 @@ void setup() {
   Particle.function("queryEnviro", queryEnviro);
   Particle.function("publishData", publishData);
   Particle.function("toggleTarp", toggleTarp);
+  Particle.function("testPressure", testPressure);
   Particle.variable("tarpState", tarpState);
 }
 
 // loop() runs over and over again, as quickly as it can execute.
 void loop() {
+  Serial.println(analogRead(A4));
   delay(1000);
 }
 
-void stopRotating() {
+void stopRetracting() {
   servo.detach();
-  if (tarpState == "Extending") {
-    tarpState = "Extended";
-    state = extended;
-  } else if (tarpState == "Retracting") {
-    tarpState = "Retracted";
-    state = retracted;
-  }
+  tarpState = "Retracted";
+  state = retracted;
   publishData("");
+}
+
+void stopExtending() {
+  servo.detach();
+  tarpState = "Extended";
+  state = extended;
+  publishData("");
+}
+
+int testPressure(String args) {
+  pressureValue = analogRead(A4);
+  publishData("");
+  return 0;
 }
 
 int queryEnviro(String args) {
   temperature = sensor.readTemperature();
   humidity = sensor.readHumidity();
   publishData("");
+  return 0;
 }
 
 int toggleTarp(String args) {
@@ -79,13 +93,13 @@ int toggleTarp(String args) {
   if (state == retracted) {
     tarpState = "Extending";
     state = extending;
-    servo.write(180);
-    retractAndextend.start();
+    servo.write(0);
+    extend.start();
   } else if (state == extended) {
     tarpState = "Retracting";
-    servo.write(0);
-    retractAndextend.start();
     state = retracting;
+    servo.write(180);
+    retract.start();
   } else {
     // do nothing
   }
@@ -106,6 +120,9 @@ int publishData(String args) {
   data += ", ";
   data += "\"humidity\":";
   data += String(humidity);
+  data += ", ";
+  data += "\"pressure\":";
+  data += String(pressureValue);
   data += "}";
 
   Serial.println("Publishing:");
