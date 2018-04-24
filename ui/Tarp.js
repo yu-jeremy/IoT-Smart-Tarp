@@ -4,6 +4,7 @@ var photos_btn
 var settings_btn
 var profile_btn
 var toggle_tarp_btn
+var retrieve_data_btn
 
 var photosToCp
 var photosToUser
@@ -28,6 +29,11 @@ var current_page // the current page
 function toggleTarp() {
   smartTarp.toggleTarp();
 }
+
+function retrieveEnviroData() {
+  smartTarp.retrieveEnviroData();
+}
+
 function goToSettings() {
   photos_div.style.display = "none";
   home_div.style.display = "none";
@@ -70,8 +76,12 @@ function loadingPage() {
 
 function updateState(newState) {
   loadingPage();
-  document.getElementById("info").innerHTML = newState.tarpState;
   console.log(newState);
+  console.log(newState.temperature);
+  console.log(newState.humidity);
+  document.getElementById("info").innerHTML = newState.tarpState;
+  document.getElementById("temp").innerHTML = newState.temperature;
+  document.getElementById("humidity").innerHTML = newState.humidity;
 }
 
 window.addEventListener("load", function() {
@@ -84,6 +94,7 @@ window.addEventListener("load", function() {
   settings_btn = document.getElementById("settings_btn");
   profile_btn = document.getElementById("profile_btn");
   toggle_tarp_btn = document.getElementById("toggle_tarp_btn");
+  retrieve_data_btn = document.getElementById("retrieve_data_btn");
 
   photosToCp = document.getElementById("photosToCp");
   photosToUser = document.getElementById("photosToUser");
@@ -106,6 +117,7 @@ window.addEventListener("load", function() {
   photos_btn.addEventListener("click", goToPhotos);
   settings_btn.addEventListener("click", goToSettings);
   toggle_tarp_btn.addEventListener("click", toggleTarp);
+  retrieve_data_btn.addEventListener("click", retrieveEnviroData);
 
   photosToCp.addEventListener("click", goToControlPanel);
   photosToUser.addEventListener("click", goToUserProfile);

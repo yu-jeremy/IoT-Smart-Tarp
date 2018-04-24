@@ -7,12 +7,18 @@ function newTarpEvent(objectContainingData) {
   console.dir(objectContainingData.data);
   var data = JSON.parse(objectContainingData.data);
   smartTarp.tarpState = data.tarpState;
+  smartTarp.temperature = Math.round((((data.temperature * 9) / 5) + 32) * 1000) / 1000;
+  smartTarp.humidity = Math.round(data.humidity * 100) / 100;
+  console.log(data.temperature);
+  console.log(data.humidity);
   // then set the global smartTarp object's properties
   smartTarp.stateChange();
 }
 
 var smartTarp = {
   tarpState: "Retracted", // retracted, extended, extending, retracting, etc.
+  temperature: 0,
+  humidity: 0,
   stateChangeListener: null,
   particle: null,
   toggleTarp: function() {
@@ -24,7 +30,22 @@ var smartTarp = {
     }
     function onSuccess(e) { console.log("toggleTarp call success")}
     function onFailure(e) {
-      console.log("toggleTarp call failed" )
+      console.log("toggleTarp call failed")
+      console.dir(e)
+    }
+    particle.callFunction(functionData).then(onSuccess, onFailure);
+  },
+
+  retrieveEnviroData: function() {
+    var functionData = {
+      deviceId:mySecondDeviceId,
+      name: "queryEnviro",
+      argument: "",
+      auth: myParticleAccessToken
+    }
+    function onSuccess(e) { console.log("queryEnviro call success")}
+    function onFailure(e) {
+      console.log("queryEnviro call failed")
       console.dir(e)
     }
     particle.callFunction(functionData).then(onSuccess, onFailure);
@@ -37,7 +58,9 @@ var smartTarp = {
   stateChange: function() {
     if (this.stateChangeListener) {
       var state = {
-        tarpState: this.tarpState
+        tarpState: this.tarpState,
+        temperature: this.temperature,
+        humidity: this.humidity
       }
       this.stateChangeListener(state);
     }

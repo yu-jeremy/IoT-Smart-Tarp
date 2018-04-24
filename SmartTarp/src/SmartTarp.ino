@@ -5,6 +5,11 @@
  * Date: 4/23/18
  */
 
+// include the library for the temperature sensor
+#include "../lib/Adafruit_AM2315/src/Adafruit_AM2315/Adafruit_AM2315.h"
+
+Adafruit_AM2315 sensor = Adafruit_AM2315();
+
 // servo object
 Servo servo;
 
@@ -15,6 +20,8 @@ STARTUP(WiFi.selectAntenna(ANT_AUTO));
 const String topic = "cse222/final_proj/tarp/state";
 
 String tarpState;
+float temperature;
+float humidity;
 
 enum State {
   retracted,
@@ -30,10 +37,15 @@ Timer retractAndextend(5000, stopRotating, true);
 // setup() runs once, when the device is first turned on.
 void setup() {
   Serial.begin(9600);
-  servo.attach(D0);
+  servo.attach(D2);
+
+  sensor.begin();
 
   tarpState = "Retracted";
+  temperature = sensor.readTemperature();
+  humidity = sensor.readHumidity();
 
+  Particle.function("queryEnviro", queryEnviro);
   Particle.function("publishData", publishData);
   Particle.function("toggleTarp", toggleTarp);
   Particle.variable("tarpState", tarpState);
@@ -56,8 +68,14 @@ void stopRotating() {
   publishData("");
 }
 
+int queryEnviro(String args) {
+  temperature = sensor.readTemperature();
+  humidity = sensor.readHumidity();
+  publishData("");
+}
+
 int toggleTarp(String args) {
-  servo.attach(D0);
+  servo.attach(D2);
   if (state == retracted) {
     tarpState = "Extending";
     state = extending;
@@ -82,6 +100,12 @@ int publishData(String args) {
   data += "\"";
   data += tarpState;
   data += "\"";
+  data += ", ";
+  data += "\"temperature\":";
+  data += String(temperature);
+  data += ", ";
+  data += "\"humidity\":";
+  data += String(humidity);
   data += "}";
 
   Serial.println("Publishing:");
