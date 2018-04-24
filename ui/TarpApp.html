@@ -29,19 +29,30 @@
       <div class="container mt-2 row text-center">
         <div class="col">
           <div class="card cp-panels bg-dark text-white border-white">
-            <div class="card-header">
+            <div class="card-header border-white">
               <h4>Smart-Tarp Information</h4>
             </div>
-            <div class="card-body">
-              <span class="lead">Smart-Tarp Status: <span id="info"></span></span><br>
-              <span class="lead">Environment Temperature: <span id="temp"></span>&#8457;</span><br>
-              <span class="lead">Environment Humidity: <span id="humidity"></span>%</span>
-            </div>
+            <table class="card-body table-bordered table-hover">
+              <tbody>
+                <tr>
+                  <th scope="row" class="lead">Status</th>
+                  <td class="lead"><span id="info"></span></td>
+                </tr>
+                <tr>
+                  <th scope="row" class="lead">Environment Temperature</th>
+                  <td class="lead"><span id="temp"></span>&#8457</td>
+                </tr>
+                <tr>
+                  <th scope="row" class="lead">Environment Humidity</th>
+                  <td class="lead"><span id="humidity"></span>%</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
         <div class="col">
           <div class="card cp-panels bg-dark text-white border-white">
-            <div class="card-header">
+            <div class="card-header border-white">
               <h4>Interact With Your Tarp</h4>
             </div>
             <div class="card-body">
