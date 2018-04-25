@@ -44,7 +44,7 @@ enum State {
 
 State state = retracted;
 
-Timer extend(6500, stopExtending, true);
+Timer extend(5750, stopExtending, true);
 Timer retract(6000, stopRetracting, true);
 
 Timer status_timer(10000, updateStatusTime);
@@ -166,7 +166,6 @@ int queryEnviro(String args) {
 int toggleTarp(String args) {
   servo.attach(D2);
   status_update_time = 0;
-  status_timer.reset();
   if (state == retracted) {
     tarpState = "Extending";
     state = extending;

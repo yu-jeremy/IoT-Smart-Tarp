@@ -9,7 +9,7 @@ function newTarpEvent(objectContainingData) {
   smartTarp.tarpState = data.tarpState;
   smartTarp.temperature = Math.round((((data.temperature * 9) / 5) + 32) * 1000) / 1000;
   smartTarp.humidity = Math.round(data.humidity * 100) / 100;
-  smartTarp.pressure = data.pressure;
+  smartTarp.pressure = Math.round(data.pressure * 10000) / 10000;
   smartTarp.last_status_update_time = data.last_status_update_time;
   smartTarp.last_temp_update_time = data.last_temp_update_time;
   smartTarp.last_humid_update_time = data.last_humid_update_time;
