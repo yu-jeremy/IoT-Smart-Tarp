@@ -21,7 +21,7 @@ function newTarpEvent(objectContainingData) {
   smartTarp.user = data.user;
   smartTarp.pwd = data.pwd;
   smartTarp.system = data.sys;
-  console.log(data.sys);
+  console.log(data.user);
   smartTarp.stateChange();
 }
 
@@ -71,12 +71,12 @@ var smartTarp = {
   },
 
   updateUserInfo: function(username, password) {
-    this.registered_owner = username;
-    this.owner_pwd = password;
+    this.user = username;
+    this.pwd = password;
     var functionData = {
       deviceId:mySecondDeviceId,
       name: "updateUser",
-      argument: "" + this.registered_owner + "," + this.owner_pwd,
+      argument: this.user + "," + this.pwd,
       auth: myParticleAccessToken
     }
     function onSuccess(e) { console.log("updateUser call success")}

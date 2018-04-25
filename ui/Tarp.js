@@ -53,6 +53,8 @@ function changeSystem() {
   Update user information by calling the tarp's function with arguments
 */
 function updateUserInfo() {
+  console.log(username.value);
+  console.log(password.value);
   smartTarp.updateUserInfo(username.value, password.value);
 }
 

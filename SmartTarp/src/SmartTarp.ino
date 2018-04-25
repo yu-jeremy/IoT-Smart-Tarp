@@ -80,8 +80,8 @@ void setup() {
   Particle.function("toggleTarp", toggleTarp);
   Particle.function("testPressure", testPressure);
   Particle.variable("tarpState", tarpState);
-  Particle.variable("username", user);
-  Particle.variable("password", pwd);
+  Particle.variable("user", user);
+  Particle.variable("pwd", pwd);
   Particle.variable("sys", sys);
 
   status_timer.start();
@@ -138,11 +138,14 @@ void calculateVoltage() {
 }
 
 int updateUser(String args) {
+  Serial.println(args);
   int indexOfComma = args.indexOf(',');
   String username = args.substring(0,indexOfComma);
   String password = args.substring(indexOfComma+1);
   user = username;
   pwd = password;
+  Serial.println(user);
+  Serial.println(pwd);
   publishData("");
   return 0;
 }
