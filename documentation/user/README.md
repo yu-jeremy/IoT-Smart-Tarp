@@ -12,9 +12,10 @@ This project is a prototype for a Smart-Tarp. You may know about many smart devi
 
 ### "What do I need to know to get started?"
 
-Controlling the UI (or User Interface) is all you need to learn. Additionally, you will have to learn how to best take care of the hardware, as this prototype needs maintenance and upkeep.
+Controlling the UI (or User Interface) is all you need to learn. Additionally, you will have to learn how to best take care of the hardware, as this prototype needs maintenance and upkeep. Here are some notes you might need as you navigate this project:
 
-
+1. Navigate between pages using BUTTONS
+2. There are a few pages you should know about: the "home" page or control panel, the user profile, and the settings page. There is also an loading screen and a login screen but these are for aesthetics only.
 
 ### "What are some specific features I should know about?"
 
