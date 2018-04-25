@@ -60,6 +60,8 @@ void setup() {
   sensor.begin();
 
   tarpState = "Retracted";
+  user = "Bob";
+  pwd = "hello";
   temperature = sensor.readTemperature();
   humidity = sensor.readHumidity();
 
@@ -67,6 +69,7 @@ void setup() {
   temp_update_time = 0;
   humidity_update_time = 0;
   pressure_update_time = 0;
+
 
   Particle.function("updateUser", updateUser);
   Particle.function("queryEnviro", queryEnviro);
@@ -209,22 +212,16 @@ int publishData(String args) {
   data += "\"last_press_update_time\":";
   data += String(pressure_update_time);
   data += ", ";
-  data += "\"registered_owner\":";
+  data += "\"user\":";
   data += "\"";
   data += user;
   data += "\"";
   data += ", ";
-  data += "\"owner_pwd\":";
+  data += "\"pwd\":";
   data += "\"";
   data += pwd;
   data += "\"";
   data += "}";
-  // data += ", ";
-  // data += "\"owner_pwd\":";
-  // data += "\"";
-  // data += pwd;
-  // data += "\"";
-  // data += "}";
 
   Serial.println("Publishing:");
   Serial.println(data);

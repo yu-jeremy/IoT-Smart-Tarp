@@ -14,8 +14,8 @@ function newTarpEvent(objectContainingData) {
   smartTarp.last_temp_update_time = data.last_temp_update_time;
   smartTarp.last_humid_update_time = data.last_humid_update_time;
   smartTarp.last_press_update_time = data.last_press_update_time;
-  smartTarp.registered_owner = data.registered_owner;
-  smartTarp.owner_pwd = data.owner_pwd;
+  smartTarp.user = data.user;
+  smartTarp.pwd = data.pwd;
   // then set the global smartTarp object's properties
   smartTarp.stateChange();
 }
@@ -29,8 +29,8 @@ var smartTarp = {
   last_temp_update_time: 0,
   last_humid_update_time: 0,
   last_press_update_time: 0,
-  registered_owner: "Username",
-  owner_pwd: "Password",
+  user: "Username",
+  pwd: "Password",
   stateChangeListener: null,
   particle: null,
   toggleTarp: function() {
@@ -48,7 +48,9 @@ var smartTarp = {
     particle.callFunction(functionData).then(onSuccess, onFailure);
   },
 
-  updateUserInfo: function() {
+  updateUserInfo: function(username, password) {
+    this.registered_owner = username;
+    this.owner_pwd = password;
     var functionData = {
       deviceId:mySecondDeviceId,
       name: "updateUser",
@@ -108,8 +110,8 @@ var smartTarp = {
         last_temp_update_time: this.last_temp_update_time,
         last_humid_update_time: this.last_humid_update_time,
         last_press_update_time: this.last_press_update_time,
-        registered_owner: this.registered_owner,
-        owner_pwd: this.owner_pwd
+        user: this.user,
+        pwd: this.pwd
       }
       this.stateChangeListener(state);
     }

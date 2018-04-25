@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,27 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   </head>
-  <body class="container-fluid bg-dark text-white">
+  <body class="container bg-dark text-white">
+    <nav id="nav" class="container text-center row navbar navbar-light bg-dark">
+      <button id="logout_btn" type="button" class="col nav-link btn btn-danger">Log Out</button><br>
+      <span id="welcome_alert" class="text-center col alert alert-success" role="alert">
+        Welcome, <span id="hello_user"></span>! Explore the control panel!
+      </span>
+    </nav>
+    <div id="login_div" class="text-center">
+      <h1 id="login_title" class="display-1">Tarpology</h1>
+      <form>
+        <div class="form-group">
+          <label for="login_user">Username</label>
+          <input type="text" class="form-control" id="login_user" placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+          <label for="login_pwd">Password</label>
+          <input type="password" class="form-control" id="login_pwd" placeholder="Enter your password">
+        </div>
+        <button id="login_btn" type="button" class="btn btn-primary">Submit</button>
+      </form>
+      </div>
 
     <div id="loading_div" class="text-center">
       <h1 id="loading_title" class="display-1">Loading...</h1>
@@ -41,7 +61,7 @@
               <h4>Temperature</h4>
             </div>
             <div class="card-body">
-              <span><span id="temp"></span>&#8457</span>
+              <span><span id="temp"></span>&#8457;</span>
             </div>
             <div class="card-footer">
               <small class="text-muted">Last Updated <span id="temp_time"></span> seconds ago</small>
@@ -84,12 +104,8 @@
     </div>
     <div id="settings_div">
       <!-- Just an image -->
-      <nav class="navbar navbar-light bg-primary">
-        <a class="nav-link">Home</a>
-        <a class="nav-link">Profile</a>
-      </nav>
       <div class="container text-center mt-5">
-        <h1 class="display-1">System Settings</h1>
+        <h1 class="display-3">System Settings</h1>
         <div class="btn-group-lg btn-group">
           <button id="settingsToCp" type="button" class="btn btn-primary">Control Panel</button>
           <button id="settingsToUser" type="button" class="btn btn-primary">User Profile</buttON>
@@ -99,36 +115,42 @@
 
     <div id="user_div">
       <div class="container text-center mt-5">
-        <h1 class="display-1">Your Profile</h1>
+        <h1 class="display-3">Your Profile</h1>
         <div class="btn-group-lg btn-group">
           <button id="userToCp" type="button" class="btn btn-primary">Control Panel</button>
           <button id="userToSettings" type="button" class="btn btn-primary">Settings</button>
         </div>
       </div>
       <div class="container text-center mt-5">
+        <div class="container md_container card bg-dark">
+          <label for="current_user">Your Username:</label>
+          <input id="current_user" class="form-control" type="text" readonly>
+          <label for="current_pwd">Your Password:</label>
+          <input id="current_pwd" class="form-control" type="text" readonly>
+        </div>
         <form class="container md_container card bg-dark">
           <div class="form-group">
             <label for="username">Username</label>
-            <input type="username" class="form-control" id="username" placeholder="Enter Username">
+            <input type="text" class="form-control" id="username" placeholder="Enter Username">
           </div>
           <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" placeholder="Enter Password">
           </div>
-          <button id="submit_user_btn" type="type" class="btn btn-primary">Submit User Info</button>
+          <button id="submit_user_btn" type="button" class="btn btn-primary">Submit User Info</button>
         </form>
       </div>
     </div>
-
-
-
-
-  </body>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
   <script src="resources/particle/particle.min.js"></script>
   <script src="TarpModel.js"></script>
   <script src="Tarp.js"></script>
+
+
+
+  </body>
+
 
 </html>
