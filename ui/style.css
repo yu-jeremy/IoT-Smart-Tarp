@@ -18,9 +18,13 @@ body, html {
 }
 
 .cp-panels {
-  margin: 10px;
+  margin: 0px;
 }
 
 #loading_div {
   margin: auto;
+}
+
+.btn {
+  margin: 10px;
 }

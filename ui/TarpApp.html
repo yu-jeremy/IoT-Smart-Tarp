@@ -26,43 +26,59 @@
           <button id="settings_btn" type="button" class="btn btn-primary">Settings</button>
         </div>
       </div>
-      <div class="container mt-2 row text-center">
-        <div class="col">
-          <div class="card cp-panels bg-dark text-white border-white">
+      <div class="container mt-2 text-center">
+        <div class="card-group col">
+          <div class="card cp-panels bg-dark text-white border-secondary">
             <div class="card-header border-white">
-              <h4>Smart-Tarp Information</h4>
+              <h4>Tarp Status</h4>
             </div>
-            <table class="card-body table-bordered table-hover">
-              <tbody>
-                <tr>
-                  <th scope="row" class="lead">Status</th>
-                  <td class="lead"><span id="info"></span></td>
-                </tr>
-                <tr>
-                  <th scope="row" class="lead">Environment Temperature</th>
-                  <td class="lead"><span id="temp"></span>&#8457</td>
-                </tr>
-                <tr>
-                  <th scope="row" class="lead">Environment Humidity</th>
-                  <td class="lead"><span id="humidity"></span>%</td>
-                </tr>
-                <tr>
-                  <th scope="row" class="lead">Pressure on Tarp</th>
-                  <td class="lead"><span id="pressure"></span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="card-body">
+              <span><span id="info"></span></span>
+            </div>
+            <div class="card-footer">
+              <span class="text-muted">Last Updated<span id="status_time"></span></span>
+            </div>
+          </div>
+          <div class="card cp-panels bg-dark text-white border-secondary">
+            <div class="card-header border-white">
+              <h4>Temperature</h4>
+            </div>
+            <div class="card-body">
+              <span><span id="temp"></span>&#8457</span>
+            </div>
+            <div class="card-footer">
+              <span class="text-muted">Last Updated<span id="temp_time"></span></span>
+            </div>
+          </div>
+          <div class="card cp-panels bg-dark text-white border-secondary">
+            <div class="card-header border-white">
+              <h4>Humidity</h4>
+            </div>
+            <div class="card-body">
+              <span><span id="humidity"></span>%</span>
+            </div>
+            <div class="card-footer">
+              <span class="text-muted">Last Updated<span id="humidity_time"></span></span>
+            </div>
+          </div>
+          <div class="card cp-panels bg-dark text-white border-secondary">
+            <div class="card-header border-white">
+              <h4>Pressure</h4>
+            </div>
+            <div class="card-body">
+              <span><span id="pressure"></span></span>
+            </div>
+            <div class="card-footer">
+              <span class="text-muted">Last Updated<span id="pressure_time"></span></span>
+            </div>
           </div>
         </div>
         <div class="col">
-          <div class="card cp-panels bg-dark text-white border-white">
-            <div class="card-header border-white">
-              <h4>Interact With Your Tarp</h4>
-            </div>
+          <div class="card cp-panels bg-dark text-white border-secondary">
             <div class="card-body">
-              <button id="toggle_tarp_btn" type="button" class="btn btn-lg btn-primary">Toggle Tarp</button>
-              <button id="retrieve_data_btn" type="button" class="btn btn-lg btn-primary">Retrieve Temp. and Humidity</button>
-              <button id="retrieve_pressure_btn" type="button" class="btn btn-lg btn-primary">Retrieve Pressure</button>
+              <button id="toggle_tarp_btn" type="button" class="container btn btn-lg btn-primary">Toggle Tarp</button>
+              <button id="retrieve_data_btn" type="button" class="container btn btn-lg btn-primary">Retrieve Temp. and Humidity</button>
+              <button id="retrieve_pressure_btn" type="button" class="container btn btn-lg btn-primary">Retrieve Pressure</button>
             </div>
           </div>
         </div>
@@ -85,10 +101,10 @@
 
     <div id="settings_div">
       <!-- Just an image -->
-      <nav class="navbar navbar-light bg-dark text-white">
-        <a class="navbar-brand" href="index.html">
-          <img src="resources/assets/222icon.png" width=60 height=60 alt="">
-        </a>
+      <nav class="navbar navbar-light bg-primary">
+        <a class="nav-link">Home</a>
+        <a class="nav-link">Profile</a>
+        <a class="nav-link">Photos</a>
       </nav>
       <div class="container text-center mt-5">
         <h1 class="display-1">System Settings</h1>
@@ -96,7 +112,7 @@
       <div class="container text-center mt-5">
         <div class="btn-group-lg btn-group">
           <button id="settingsToCp" type="button" class="btn btn-primary">Control Panel</button>
-          <button id="settingsToPhotos" type="button" class="btn btn-primary">Photo Library</button> -->
+          <button id="settingsToPhotos" type="button" class="btn btn-primary">Photo Library</button>
           <button id="settingsToUser" type="button" class="btn btn-primary">User Profile</buttON>
         </div>
       </div>

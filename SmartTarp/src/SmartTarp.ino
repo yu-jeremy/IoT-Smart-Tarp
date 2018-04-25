@@ -47,6 +47,7 @@ void setup() {
   tarpState = "Retracted";
   temperature = sensor.readTemperature();
   humidity = sensor.readHumidity();
+  pressureValue = testPressure("");
 
   Particle.function("queryEnviro", queryEnviro);
   Particle.function("publishData", publishData);
@@ -77,6 +78,8 @@ void stopExtending() {
 
 int testPressure(String args) {
   pressureValue = analogRead(A4);
+  float resolution = 1000 * 3.3 / 4095.0;
+  pressureValue *= resolution; // makes value = to ____ mV
   publishData("");
   return 0;
 }
