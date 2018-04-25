@@ -18,10 +18,7 @@
       <!-- the beginning of the home page -->
       <div class="container text-center mt-5">
         <h1 id="company_title" class="display-3">Tarpology: Coverage for the Pros</h1>
-      </div>
-      <div class="container text-center mt-5">
         <div class="btn-group-lg btn-group">
-          <button id="photos_btn" type="button" class="btn btn-primary">Photo Library</button>
           <button id="profile_btn" type="button" class="btn btn-primary">User Profile</button>
           <button id="settings_btn" type="button" class="btn btn-primary">Settings</button>
         </div>
@@ -78,41 +75,23 @@
             <div class="card-body">
               <button id="toggle_tarp_btn" type="button" class="container btn btn-lg btn-primary">Toggle Tarp</button>
               <button id="retrieve_data_btn" type="button" class="container btn btn-lg btn-primary">Retrieve Temperature and Humidity</button>
-              <button id="retrieve_pressure_btn" type="button" class="container btn btn-lg btn-primary">Retrieve Pressure</button>
+              <button id="retrieve_pressure_btn" type="button" class="container btn btn-lg btn-primary">Retrieve Pressure Stat</button>
             </div>
           </div>
         </div>
       </div>
       <!-- the end of the home page -->
     </div>
-
-    <div id="photos_div">
-      <div class="container text-center mt-5">
-        <h1 class="display-1">Your Photos</h1>
-      </div>
-      <div class="container text-center mt-5">
-        <div class="btn-group-lg btn-group">
-          <button id="photosToCp" type="button" class="btn btn-primary">Control Panel</button>
-          <button id="photosToUser" type="button" class="btn btn-primary">User Profile</button>
-          <button id="photosToSettings" type="button" class="btn btn-primary">Settings</button>
-        </div>
-      </div>
-    </div>
-
     <div id="settings_div">
       <!-- Just an image -->
       <nav class="navbar navbar-light bg-primary">
         <a class="nav-link">Home</a>
         <a class="nav-link">Profile</a>
-        <a class="nav-link">Photos</a>
       </nav>
       <div class="container text-center mt-5">
         <h1 class="display-1">System Settings</h1>
-      </div>
-      <div class="container text-center mt-5">
         <div class="btn-group-lg btn-group">
           <button id="settingsToCp" type="button" class="btn btn-primary">Control Panel</button>
-          <button id="settingsToPhotos" type="button" class="btn btn-primary">Photo Library</button>
           <button id="settingsToUser" type="button" class="btn btn-primary">User Profile</buttON>
         </div>
       </div>
@@ -121,13 +100,23 @@
     <div id="user_div">
       <div class="container text-center mt-5">
         <h1 class="display-1">Your Profile</h1>
-      </div>
-      <div class="container text-center mt-5">
         <div class="btn-group-lg btn-group">
           <button id="userToCp" type="button" class="btn btn-primary">Control Panel</button>
-          <button id="userToPhotos" type="button" class="btn btn-primary">Photo Library</button>
           <button id="userToSettings" type="button" class="btn btn-primary">Settings</button>
         </div>
+      </div>
+      <div class="container text-center mt-5">
+        <form class="container md_container card bg-dark">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="username" class="form-control" id="username" placeholder="Enter Username">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter Password">
+          </div>
+          <button id="submit_user_btn" type="type" class="btn btn-primary">Submit User Info</button>
+        </form>
       </div>
     </div>
 

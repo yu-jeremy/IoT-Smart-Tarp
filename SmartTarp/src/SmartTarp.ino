@@ -13,12 +13,14 @@ Adafruit_AM2315 sensor = Adafruit_AM2315();
 // servo object
 Servo servo;
 
-// antenna line
+// Wifi antenna
 STARTUP(WiFi.selectAntenna(ANT_AUTO));
 
 // topic we will publish to
 const String topic = "cse222/final_proj/tarp/state";
 
+String user;
+String pwd;
 String tarpState;
 float temperature;
 float humidity;
@@ -66,18 +68,20 @@ void setup() {
   humidity_update_time = 0;
   pressure_update_time = 0;
 
+  Particle.function("updateUser", updateUser);
   Particle.function("queryEnviro", queryEnviro);
   Particle.function("publishData", publishData);
   Particle.function("toggleTarp", toggleTarp);
   Particle.function("testPressure", testPressure);
   Particle.variable("tarpState", tarpState);
+  Particle.variable("username", user);
+  Particle.variable("password", pwd);
 
   status_timer.start();
   enviro_timer.start();
   press_timer.start();
 }
 
-// loop() runs over and over again, as quickly as it can execute.
 void loop() {
   calculateVoltage();
   for (int i = 0; i < PRESSURE_COUNTS; i++) {
@@ -124,6 +128,16 @@ void calculateVoltage() {
   float voltage = analogVal * resolution;
   pressures[count % PRESSURE_COUNTS] = voltage; // in mV
   count += 1;
+}
+
+int updateUser(String args) {
+  int indexOfComma = args.indexOf(',');
+  String username = args.substring(0,indexOfComma);
+  String password = args.substring(indexOfComma+1);
+  user = username;
+  pwd = password;
+  publishData("");
+  return 0;
 }
 
 int testPressure(String args) {
@@ -194,7 +208,23 @@ int publishData(String args) {
   data += ", ";
   data += "\"last_press_update_time\":";
   data += String(pressure_update_time);
+  data += ", ";
+  data += "\"registered_owner\":";
+  data += "\"";
+  data += user;
+  data += "\"";
+  data += ", ";
+  data += "\"owner_pwd\":";
+  data += "\"";
+  data += pwd;
+  data += "\"";
   data += "}";
+  // data += ", ";
+  // data += "\"owner_pwd\":";
+  // data += "\"";
+  // data += pwd;
+  // data += "\"";
+  // data += "}";
 
   Serial.println("Publishing:");
   Serial.println(data);

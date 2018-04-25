@@ -14,9 +14,8 @@ function newTarpEvent(objectContainingData) {
   smartTarp.last_temp_update_time = data.last_temp_update_time;
   smartTarp.last_humid_update_time = data.last_humid_update_time;
   smartTarp.last_press_update_time = data.last_press_update_time;
-  console.log(data.temperature);
-  console.log(data.humidity);
-  console.log(data.pressure);
+  smartTarp.registered_owner = data.registered_owner;
+  smartTarp.owner_pwd = data.owner_pwd;
   // then set the global smartTarp object's properties
   smartTarp.stateChange();
 }
@@ -30,6 +29,8 @@ var smartTarp = {
   last_temp_update_time: 0,
   last_humid_update_time: 0,
   last_press_update_time: 0,
+  registered_owner: "Username",
+  owner_pwd: "Password",
   stateChangeListener: null,
   particle: null,
   toggleTarp: function() {
@@ -42,6 +43,21 @@ var smartTarp = {
     function onSuccess(e) { console.log("toggleTarp call success")}
     function onFailure(e) {
       console.log("toggleTarp call failed")
+      console.dir(e)
+    }
+    particle.callFunction(functionData).then(onSuccess, onFailure);
+  },
+
+  updateUserInfo: function() {
+    var functionData = {
+      deviceId:mySecondDeviceId,
+      name: "updateUser",
+      argument: "" + this.registered_owner + "," + this.owner_pwd,
+      auth: myParticleAccessToken
+    }
+    function onSuccess(e) { console.log("updateUser call success")}
+    function onFailure(e) {
+      console.log("updateUser call failed")
       console.dir(e)
     }
     particle.callFunction(functionData).then(onSuccess, onFailure);
@@ -91,7 +107,9 @@ var smartTarp = {
         last_status_update_time: this.last_status_update_time,
         last_temp_update_time: this.last_temp_update_time,
         last_humid_update_time: this.last_humid_update_time,
-        last_press_update_time: this.last_press_update_time
+        last_press_update_time: this.last_press_update_time,
+        registered_owner: this.registered_owner,
+        owner_pwd: this.owner_pwd
       }
       this.stateChangeListener(state);
     }

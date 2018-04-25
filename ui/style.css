@@ -28,3 +28,8 @@ body, html {
 .btn {
   margin: 10px;
 }
+
+.md_container {
+  margin: 2%;
+  line-height: 200%;
+}
