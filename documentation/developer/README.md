@@ -141,8 +141,10 @@ just a prototype).
 
 1. If you were to edit the UI or add a new page to my UI...
   * Refer to [TarpApp.html](../../ui/TarpApp.html) for guidance
-  *
+  * I utilized Bootstrap to make my UI look smooth. Explore this framework for your own creative options: [Bootstrap](https://getbootstrap.com/)
+
 2. If you were to add a new sensor or output to the device...
+
   * Make sure you change pins IN THE CODE according to how you change pins ON YOUR HARDWARE. You might need to make more room on your breadboard or buy a larger one if you have many more sensors to add.
   * If your sensors have output that needs to be written to the device and back to the UI, make sure you implement each sensor in the following order:
     1. Create UI elements for displaying the output from said sensors, being sure to give them appropriate IDs you will remember
@@ -150,7 +152,13 @@ just a prototype).
     3. Create functions that act as callbacks for the event listeners you have added, being sure that these functions ONLY CALL FUNCTIONS ATTRIBUTED TO THE TARP OBJECT.
     4. Write additional functions in [TarpModel.js](../../ui/TarpModel.js) that take in any input from functions in [Tarp.js](../../ui/Tarp.js) and pass packaged input to Particle functions.
     5. In your main source file, [SmartTarp.ino](../../SmartTarp/src/SmartTarp.ino), define Particle functions and helper functions in that appropriately change variables in the cloud.
+
+
 3. If you were to implement functionality in the "Settings" page...
+
   * While the UI elements in the settings page are already set up for you, you will have to write the back-end code. In the main HTML file, look for a comment that says "the settings page" in order to get started on identifying elements that need to be represented in the DOM.
+
+
 4. If you were to make hardware improvements...
-  * Please do so! This design is just a prototype so it is flawed!
+
+  * Please do so! This design is just a prototype so it is flawed! Start with figuring out how you might package this entire contraption better (as opposed to holding multiple parts in hand while testing). Refer to provided images to get started on this.
