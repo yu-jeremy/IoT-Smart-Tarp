@@ -23,6 +23,15 @@ String tarpState;
 float temperature;
 float humidity;
 float pressureValue;
+const int PRESSURE_COUNTS = 7;
+
+int status_update_time;
+int temp_update_time;
+int humidity_update_time;
+int pressure_update_time;
+
+float pressures[PRESSURE_COUNTS];
+int count = 0;
 
 enum State {
   retracted,
@@ -36,6 +45,10 @@ State state = retracted;
 Timer extend(6500, stopExtending, true);
 Timer retract(6000, stopRetracting, true);
 
+Timer status_timer(10000, updateStatusTime);
+Timer enviro_timer(10000, updateEnviroTime);
+Timer press_timer(10000, updatePressureTime);
+
 // setup() runs once, when the device is first turned on.
 void setup() {
   Serial.begin(9600);
@@ -47,19 +60,48 @@ void setup() {
   tarpState = "Retracted";
   temperature = sensor.readTemperature();
   humidity = sensor.readHumidity();
-  pressureValue = testPressure("");
+
+  status_update_time = 0;
+  temp_update_time = 0;
+  humidity_update_time = 0;
+  pressure_update_time = 0;
 
   Particle.function("queryEnviro", queryEnviro);
   Particle.function("publishData", publishData);
   Particle.function("toggleTarp", toggleTarp);
   Particle.function("testPressure", testPressure);
   Particle.variable("tarpState", tarpState);
+
+  status_timer.start();
+  enviro_timer.start();
+  press_timer.start();
 }
 
 // loop() runs over and over again, as quickly as it can execute.
 void loop() {
-  Serial.println(analogRead(A4));
+  calculateVoltage();
+  for (int i = 0; i < PRESSURE_COUNTS; i++) {
+    Serial.print(pressures[i]);
+    Serial.print(',');
+  }
+  Serial.println();
   delay(1000);
+}
+
+void updateStatusTime() {
+  status_update_time += 10;
+  publishData("");
+}
+
+void updateEnviroTime() {
+  temp_update_time += 10;
+  humidity_update_time += 10;
+  publishData("");
+}
+
+void updatePressureTime() {
+  pressure_update_time += 10;
+  publishData("");
 }
 
 void stopRetracting() {
@@ -76,10 +118,20 @@ void stopExtending() {
   publishData("");
 }
 
-int testPressure(String args) {
-  pressureValue = analogRead(A4);
+void calculateVoltage() {
+  float analogVal = analogRead(A4);
   float resolution = 1000 * 3.3 / 4095.0;
-  pressureValue *= resolution; // makes value = to ____ mV
+  float voltage = analogVal * resolution;
+  pressures[count % PRESSURE_COUNTS] = voltage; // in mV
+  count += 1;
+}
+
+int testPressure(String args) {
+  float mean = (pressures[0] + pressures[1] + pressures[2] + pressures[3] + pressures[4]
+    + pressures[5] + pressures[6]) / PRESSURE_COUNTS;
+  pressureValue = mean;
+  pressure_update_time = 0;
+  press_timer.reset();
   publishData("");
   return 0;
 }
@@ -87,12 +139,17 @@ int testPressure(String args) {
 int queryEnviro(String args) {
   temperature = sensor.readTemperature();
   humidity = sensor.readHumidity();
+  temp_update_time = 0;
+  humidity_update_time = 0;
+  enviro_timer.reset();
   publishData("");
   return 0;
 }
 
 int toggleTarp(String args) {
   servo.attach(D2);
+  status_update_time = 0;
+  status_timer.reset();
   if (state == retracted) {
     tarpState = "Extending";
     state = extending;
@@ -106,7 +163,6 @@ int toggleTarp(String args) {
   } else {
     // do nothing
   }
-
   publishData("");
   return 0;
 }
@@ -126,6 +182,18 @@ int publishData(String args) {
   data += ", ";
   data += "\"pressure\":";
   data += String(pressureValue);
+  data += ", ";
+  data += "\"last_status_update_time\":";
+  data += String(status_update_time);
+  data += ", ";
+  data += "\"last_temp_update_time\":";
+  data += String(temp_update_time);
+  data += ", ";
+  data += "\"last_humid_update_time\":";
+  data += String(humidity_update_time);
+  data += ", ";
+  data += "\"last_press_update_time\":";
+  data += String(pressure_update_time);
   data += "}";
 
   Serial.println("Publishing:");

@@ -80,6 +80,9 @@ function loadingPage() {
 }
 
 function updateState(newState) {
+  if (newState.pressure == 0) {
+    retrievePressure();
+  }
   loadingPage();
   console.log(newState);
   console.log(newState.temperature);
@@ -88,6 +91,10 @@ function updateState(newState) {
   document.getElementById("temp").innerHTML = newState.temperature;
   document.getElementById("humidity").innerHTML = newState.humidity;
   document.getElementById("pressure").innerHTML = newState.pressure;
+  document.getElementById("status_time").innerHTML = newState.last_status_update_time;
+  document.getElementById("temp_time").innerHTML = newState.last_temp_update_time;
+  document.getElementById("humidity_time").innerHTML = newState.last_humid_update_time;
+  document.getElementById("pressure_time").innerHTML = newState.last_press_update_time;
 }
 
 window.addEventListener("load", function() {

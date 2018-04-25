@@ -10,6 +10,10 @@ function newTarpEvent(objectContainingData) {
   smartTarp.temperature = Math.round((((data.temperature * 9) / 5) + 32) * 1000) / 1000;
   smartTarp.humidity = Math.round(data.humidity * 100) / 100;
   smartTarp.pressure = data.pressure;
+  smartTarp.last_status_update_time = data.last_status_update_time;
+  smartTarp.last_temp_update_time = data.last_temp_update_time;
+  smartTarp.last_humid_update_time = data.last_humid_update_time;
+  smartTarp.last_press_update_time = data.last_press_update_time;
   console.log(data.temperature);
   console.log(data.humidity);
   console.log(data.pressure);
@@ -22,6 +26,10 @@ var smartTarp = {
   temperature: 0,
   humidity: 0,
   pressure: 0,
+  last_status_update_time: 0,
+  last_temp_update_time: 0,
+  last_humid_update_time: 0,
+  last_press_update_time: 0,
   stateChangeListener: null,
   particle: null,
   toggleTarp: function() {
@@ -79,7 +87,11 @@ var smartTarp = {
         tarpState: this.tarpState,
         temperature: this.temperature,
         humidity: this.humidity,
-        pressure: this.pressure
+        pressure: this.pressure,
+        last_status_update_time: this.last_status_update_time,
+        last_temp_update_time: this.last_temp_update_time,
+        last_humid_update_time: this.last_humid_update_time,
+        last_press_update_time: this.last_press_update_time
       }
       this.stateChangeListener(state);
     }
