@@ -2,15 +2,15 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6, maximum-scale=0.6" />
     <title>Tarpology</title>
     <link rel="icon" href="resources/assets/222icon.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   </head>
-  <body class="container bg-dark text-white">
+  <body class="container bg-dark text-center text-white">
     <nav id="nav" class="container text-center row navbar navbar-light bg-dark">
-      <button id="logout_btn" type="button" class="col nav-link btn btn-danger">Log Out</button><br>
+      <span><button id="logout_btn" type="button" class="col nav-link btn btn-danger">Log Out</button></span><br>
       <span id="welcome_alert" class="text-center col alert alert-success" role="alert">
         Welcome, <span id="hello_user"></span>! Explore the control panel!
       </span>
@@ -34,16 +34,16 @@
       <h1 id="loading_title" class="display-1">Loading...</h1>
     </div>
 
-    <div id="home_div" class="text-center container">
+    <div id="home_div" class="text-center container-fluid">
       <!-- the beginning of the home page -->
-      <div class="container text-center mt-5">
+      <div class="container-fluid text-center mt-5">
         <h1 id="company_title" class="display-3">Tarpology: Coverage for the Pros</h1>
         <div class="btn-group-lg btn-group">
           <button id="profile_btn" type="button" class="btn btn-primary">User Profile</button>
           <button id="settings_btn" type="button" class="btn btn-primary">Settings</button>
         </div>
       </div>
-      <div class="container mt-2 text-center">
+      <div class="container-fluid mt-2 text-center">
         <div class="card-group col">
           <div class="card cp-panels bg-dark text-white border-secondary">
             <div class="card-header border-white">
@@ -115,7 +115,7 @@
 
     <div id="user_div">
       <div class="container text-center mt-5">
-        <h1 class="display-3">Your Profile</h1>
+        <h1 class="display-1">Your Profile</h1>
         <div class="btn-group-lg btn-group">
           <button id="userToCp" type="button" class="btn btn-primary">Control Panel</button>
           <button id="userToSettings" type="button" class="btn btn-primary">Settings</button>
@@ -130,11 +130,11 @@
         </div>
         <form class="container md_container card bg-dark">
           <div class="form-group">
-            <label for="username">Username</label>
+            <label for="username">New Username</label>
             <input type="text" class="form-control" id="username" placeholder="Enter Username">
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">New Password</label>
             <input type="password" class="form-control" id="password" placeholder="Enter Password">
           </div>
           <button id="submit_user_btn" type="button" class="btn btn-primary">Submit User Info</button>
