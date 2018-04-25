@@ -1,27 +1,27 @@
 
-var company_title
-var settings_btn
-var profile_btn
-var toggle_tarp_btn
-var retrieve_data_btn
-var retrieve_pressure_btn
-var submit_user_btn
-var login_btn
-var logout_btn
-var submit_system_btn
+var company_title // tarpology title, we don't use this
+var settings_btn // home to settings button
+var profile_btn // home to user profile button
+var toggle_tarp_btn // button on home to toggle the tarp
+var retrieve_data_btn // button to retrive temperature and humidity
+var retrieve_pressure_btn // button to retrieve pressure
+var submit_user_btn // submit new user information with this button
+var login_btn // login button (doesn't function, just for UI)
+var logout_btn // logout button (doesn't function, just for UI)
+var submit_system_btn // change the system of temperature measurement
 
-var settingsToCp
-var settingsToUser
+var settingsToCp // button to go from settings to control panel
+var settingsToUser // button to go from settings to user profile
 
-var userToCp
-var userToSettings
+var userToCp // button to go from user profile to control panel
+var userToSettings // but to go from user profile to settings page
 
-var settings_div
-var home_div
-var user_div
-var loading_div
-var login_div
-var nav
+var settings_div // settings page
+var home_div // home page
+var user_div // user page
+var loading_div // loading page
+var login_div // login page
+var nav // navigation bar that mostly stays put
 
 var current_page // the current page
 
@@ -34,8 +34,11 @@ var login_user
 var login_pwd
 var greet_user
 
-var welcome_alert
+var welcome_alert // greets the user with their username
 
+/*
+  Change the system of measuring temperature through a select input
+*/
 function changeSystem() {
   var s = "";
   if (document.getElementById("system").value == "Celsius") {
@@ -46,22 +49,37 @@ function changeSystem() {
   smartTarp.changeSystem(s);
 }
 
+/*
+  Update user information by calling the tarp's function with arguments
+*/
 function updateUserInfo() {
   smartTarp.updateUserInfo(username.value, password.value);
 }
 
+/*
+  Toggle the tarp, either retracting or extending it
+*/
 function toggleTarp() {
   smartTarp.toggleTarp();
 }
 
+/*
+  Retrieve the pressure data that is read from analog at this moment
+*/
 function retrievePressure() {
   smartTarp.testPressure();
 }
 
+/*
+  Retrieve temperature and humidity from the sensor
+*/
 function retrieveEnviroData() {
   smartTarp.retrieveEnviroData();
 }
 
+/*
+  Hide all pages besides settings page
+*/
 function goToSettings() {
   current_page = "settings";
   nav.style.display = "block";
@@ -71,6 +89,9 @@ function goToSettings() {
   settings_div.style.display = "block";
 }
 
+/*
+  Hide all pages besides user profile page
+*/
 function goToUserProfile() {
   current_page = "profile";
   nav.style.display = "block";
@@ -80,6 +101,9 @@ function goToUserProfile() {
   user_div.style.display = "block";
 }
 
+/*
+  Hide all pages except for home, the control panel
+*/
 function goToControlPanel() {
   current_page = "home";
   nav.style.display = "block";
@@ -90,6 +114,9 @@ function goToControlPanel() {
   home_div.style.display = "block";
 }
 
+/*
+  Hide all except for the loading page
+*/
 function goToLoading() {
   current_page = "loading";
   user_div.style.display = "none";
@@ -99,6 +126,9 @@ function goToLoading() {
   login_div.style.display = "none";
 }
 
+/*
+  Go to the login page, hiding everythinge else
+*/
 function goToLogin() {
   current_page = "login";
   login_div.style.display = "block";
@@ -109,6 +139,9 @@ function goToLogin() {
   loading_div.style.display = "none";
 }
 
+/*
+  Initially leave the loading page after the object has loaded
+*/
 function loadingPage() {
   console.log(current_page);
   loading_div.style.display = "none";
@@ -125,6 +158,9 @@ function loadingPage() {
   }
 }
 
+/*
+  Our observer, which changes UI elemenets based the tarp's global attributes
+*/
 function updateState(newState) {
   if (newState.pressure == 0) {
     retrievePressure();

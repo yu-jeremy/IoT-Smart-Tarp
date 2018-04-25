@@ -3,6 +3,10 @@ var mySecondDeviceId = "340046001051363036373538"
 var mySecondDeviceId = "510049000351353530373132"
 var topic = "cse222/final_proj/tarp/state"
 
+/*
+  Assign values to the global Smart-Tarp object's properties based on the
+  incoming JSON object from Particle
+*/
 function newTarpEvent(objectContainingData) {
   console.dir(objectContainingData.data);
   var data = JSON.parse(objectContainingData.data);
@@ -18,7 +22,6 @@ function newTarpEvent(objectContainingData) {
   smartTarp.pwd = data.pwd;
   smartTarp.system = data.sys;
   console.log(data.sys);
-  // then set the global smartTarp object's properties
   smartTarp.stateChange();
 }
 
