@@ -7,7 +7,7 @@ function newTarpEvent(objectContainingData) {
   console.dir(objectContainingData.data);
   var data = JSON.parse(objectContainingData.data);
   smartTarp.tarpState = data.tarpState;
-  smartTarp.temperature = Math.round((((data.temperature * 9) / 5) + 32) * 1000) / 1000;
+  smartTarp.temperature = data.temperature;
   smartTarp.humidity = Math.round(data.humidity * 100) / 100;
   smartTarp.pressure = Math.round(data.pressure * 10000) / 10000;
   smartTarp.last_status_update_time = data.last_status_update_time;
@@ -16,6 +16,8 @@ function newTarpEvent(objectContainingData) {
   smartTarp.last_press_update_time = data.last_press_update_time;
   smartTarp.user = data.user;
   smartTarp.pwd = data.pwd;
+  smartTarp.system = data.sys;
+  console.log(data.sys);
   // then set the global smartTarp object's properties
   smartTarp.stateChange();
 }
@@ -31,6 +33,7 @@ var smartTarp = {
   last_press_update_time: 0,
   user: "Username",
   pwd: "Password",
+  system: "F",
   stateChangeListener: null,
   particle: null,
   toggleTarp: function() {
@@ -43,6 +46,22 @@ var smartTarp = {
     function onSuccess(e) { console.log("toggleTarp call success")}
     function onFailure(e) {
       console.log("toggleTarp call failed")
+      console.dir(e)
+    }
+    particle.callFunction(functionData).then(onSuccess, onFailure);
+  },
+
+  changeSystem: function(system) {
+    this.system = system;
+    var functionData = {
+      deviceId:mySecondDeviceId,
+      name: "updateSystem",
+      argument: "" + this.system,
+      auth: myParticleAccessToken
+    }
+    function onSuccess(e) { console.log("updateSystem call success")}
+    function onFailure(e) {
+      console.log("updateSystem call failed")
       console.dir(e)
     }
     particle.callFunction(functionData).then(onSuccess, onFailure);
@@ -111,7 +130,8 @@ var smartTarp = {
         last_humid_update_time: this.last_humid_update_time,
         last_press_update_time: this.last_press_update_time,
         user: this.user,
-        pwd: this.pwd
+        pwd: this.pwd,
+        system: this.system
       }
       this.stateChangeListener(state);
     }

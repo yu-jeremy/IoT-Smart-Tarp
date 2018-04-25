@@ -8,6 +8,7 @@ var retrieve_pressure_btn
 var submit_user_btn
 var login_btn
 var logout_btn
+var submit_system_btn
 
 var settingsToCp
 var settingsToUser
@@ -34,6 +35,16 @@ var login_pwd
 var greet_user
 
 var welcome_alert
+
+function changeSystem() {
+  var s = "";
+  if (document.getElementById("system").value == "Celsius") {
+    s = "Ce";
+  } else {
+    s = "Fa";
+  }
+  smartTarp.changeSystem(s);
+}
 
 function updateUserInfo() {
   smartTarp.updateUserInfo(username.value, password.value);
@@ -123,7 +134,6 @@ function updateState(newState) {
   console.log(newState.temperature);
   console.log(newState.humidity);
   document.getElementById("info").innerHTML = newState.tarpState;
-  document.getElementById("temp").innerHTML = newState.temperature;
   document.getElementById("humidity").innerHTML = newState.humidity;
   document.getElementById("pressure").innerHTML = newState.pressure;
   document.getElementById("status_time").innerHTML = newState.last_status_update_time;
@@ -133,6 +143,17 @@ function updateState(newState) {
   current_user.value = newState.user;
   current_pwd.value = newState.pwd;
   greet_user.innerHTML = newState.user;
+
+
+  if (newState.system == "Fa") {
+    document.getElementById("temp").innerHTML = Math.round((((newState.temperature * 9) / 5) + 32) * 1000) / 1000;
+    document.getElementById("symbol").innerHTML = "&#8457;"
+    document.getElementById("system").value = "Fahrenheit";
+  } else if (newState.system == "Ce"){
+    document.getElementById("temp").innerHTML = newState.temperature;
+    document.getElementById("symbol").innerHTML = "&#8451;"
+    document.getElementById("system").value = "Celsius";
+  }
 }
 
 window.addEventListener("load", function() {
@@ -149,6 +170,7 @@ window.addEventListener("load", function() {
   submit_user_btn = document.getElementById("submit_user_btn");
   login_btn = document.getElementById("login_btn");
   logout_btn = document.getElementById("logout_btn");
+  submit_system_btn = document.getElementById("submit_system_btn");
 
   settingsToCp = document.getElementById("settingsToCp");
   settingsToUser = document.getElementById("settingsToUser");
@@ -181,6 +203,7 @@ window.addEventListener("load", function() {
   submit_user_btn.addEventListener("click", updateUserInfo);
   login_btn.addEventListener("click", goToControlPanel);
   logout_btn.addEventListener("click", goToLogin);
+  submit_system_btn.addEventListener("click", changeSystem);
 
   settingsToCp.addEventListener("click", goToControlPanel);
   settingsToUser.addEventListener("click", goToUserProfile);

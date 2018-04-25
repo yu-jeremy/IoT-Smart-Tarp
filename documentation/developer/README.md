@@ -87,6 +87,8 @@ So formally, perform the following steps to prep your tarp:
 
 2. Wiring conductive thread on both sides, taping at certain checkpoints as you deem fit in an attempt to cover most of the tarp. Make sure both loops of conductive thread "exit" the tarp on the same side (either left or right). See image below.
 
+3. Lastly, attach wires that extend the conductive thread such that we can "plug" the tarp into the breadboard we are using. Use pieces of tape as fasteners for these wires and then tape then to the Velostat sheet for safekeeping.
+
 ![Thread + Velostat](../tarpAndThread.jpg)
 
 3. With the two ends of conductive thread that should protrude from the sheet itself,
@@ -123,6 +125,13 @@ So formally, perform the following steps to prep your tarp:
 
 2. If you do not have the right filesystem setup within your folder or repo, refer to this project's general README for instructions.
 
-3. Flash the code to a registered Photon device. Then open up the application's UI, which is located in [TarpApp.html](../../ui/TarpApp.html)
+3. Flash the code to a registered Photon device. Then open up the application's UI, which is located in [TarpApp.html](../../ui/TarpApp.html).
 
-4. 
+4. To test, extend the tarp by clicking the "Toggle Tarp" button on the UI. After the tarp extends, retrieve the two wires that will be used to test for the tarp's changes in resistance. Connect one to GND and the other to the analog pin you chose earlier.
+
+5. The Velostat, when pressed upon reasonably, should now show lower voltage readings since pinching the material lowers resistance. According to Ohm's Law, which you may have learned about for the first time earlier this semester, the following is true:
+  * Current (I) = Voltage (V) / Resistance (R)
+  * By Units: Amperes = Volts / Ohms
+  * In our case, when we press on the Velostat, we reduce R, the resistance. In order to maintain the same amount of Current, I, the Voltage, V, must therefore also become smaller. This explains why our readings are smaller.
+
+## D. Modifying This Project

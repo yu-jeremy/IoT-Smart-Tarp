@@ -61,7 +61,7 @@
               <h4>Temperature</h4>
             </div>
             <div class="card-body">
-              <span><span id="temp"></span>&#8457;</span>
+              <span><span id="temp"></span><span id="symbol">&#8457;</span></span>
             </div>
             <div class="card-footer">
               <small class="text-muted">Last Updated <span id="temp_time"></span> seconds ago</small>
@@ -110,8 +110,45 @@
           <button id="settingsToCp" type="button" class="btn btn-primary">Control Panel</button>
           <button id="settingsToUser" type="button" class="btn btn-primary">User Profile</buttON>
         </div>
-        <div class="container text-center">
-          
+        <div class="container card form-group text-center bg-dark text-white">
+          <label for="system">System of Measurement:</label>
+          <select id="system" name="System of Measurement">
+            <option value="Fahrenheit">Fahrenheit</option>
+            <option value="Celsius">Celsius</option>
+          </select>
+          <button id="submit_system_btn" type="button" class="container btn btn-lg btn-primary">Choose system</button>
+        </div>
+        <div class="container card form-group text-center bg-dark">
+          <label for="auto_retract">Temperature-Based Auto-Retract:</label>
+          <div class="form-check">
+            <div class="form-group">
+              <input class="form-check-input" type="radio" name="autoRetractTemp" id="temp_retract_on" value="On" checked>
+              <label class="form-check-label" for="temp_retract_on">
+                On
+              </label>
+            </div>
+            <div class="form-group">
+              <input class="form-check-input" type="radio" name="autoRetractTemp" id="temp_retract_off" value="Off">
+              <label class="form-check-label" for="temp_retract_off">
+                Off
+              </label>
+            </div>
+          </div>
+          <label for="auto_retract">Humidity-Based Auto-Retract:</label>
+          <div class="form-check">
+            <span class="form-group">
+              <input class="form-check-input" type="radio" name="autoRetractHumid" id="humid_retract_on" value="On" checked>
+              <label class="form-check-label" for="humid_retract_on">
+                On
+              </label>
+            </span>
+            <div class="form-group">
+              <input class="form-check-input" type="radio" name="autoRetractHumid" id="humid_retract_off" value="Off">
+              <label class="form-check-label" for="humid_retract_offf">
+                Off
+              </label>
+            </div>
+          </div>
         </div>
       </div>
     </div>

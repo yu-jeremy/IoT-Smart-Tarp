@@ -19,6 +19,7 @@ STARTUP(WiFi.selectAntenna(ANT_AUTO));
 // topic we will publish to
 const String topic = "cse222/final_proj/tarp/state";
 
+String sys;
 String user;
 String pwd;
 String tarpState;
@@ -44,6 +45,7 @@ enum State {
 
 State state = retracted;
 
+
 Timer extend(5750, stopExtending, true);
 Timer retract(6000, stopRetracting, true);
 
@@ -62,6 +64,7 @@ void setup() {
   tarpState = "Retracted";
   user = "Bob";
   pwd = "hello";
+  sys = "Fa";
   temperature = sensor.readTemperature();
   humidity = sensor.readHumidity();
 
@@ -70,7 +73,7 @@ void setup() {
   humidity_update_time = 0;
   pressure_update_time = 0;
 
-
+  Particle.function("updateSystem", updateSystem);
   Particle.function("updateUser", updateUser);
   Particle.function("queryEnviro", queryEnviro);
   Particle.function("publishData", publishData);
@@ -79,6 +82,7 @@ void setup() {
   Particle.variable("tarpState", tarpState);
   Particle.variable("username", user);
   Particle.variable("password", pwd);
+  Particle.variable("sys", sys);
 
   status_timer.start();
   enviro_timer.start();
@@ -139,6 +143,12 @@ int updateUser(String args) {
   String password = args.substring(indexOfComma+1);
   user = username;
   pwd = password;
+  publishData("");
+  return 0;
+}
+
+int updateSystem(String args) {
+  sys = args;
   publishData("");
   return 0;
 }
@@ -219,6 +229,11 @@ int publishData(String args) {
   data += "\"pwd\":";
   data += "\"";
   data += pwd;
+  data += "\"";
+  data += ", ";
+  data += "\"sys\":";
+  data += "\"";
+  data += sys;
   data += "\"";
   data += "}";
 
